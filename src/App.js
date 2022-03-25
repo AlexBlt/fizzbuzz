@@ -1,23 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+
 
 function App() {
+
+
+  const [result, setResult] = useState(null);
+  const [chosenNumber, setNumber] = useState(0);
+
+  const fizz = function(value) {
+    if(value % 2 ==0) {
+      return 'fizz'
+    }
+    return '';
+  }
+
+
+  const buzz = function(value) {
+      if(value % 5 ==0) {
+          return 'buzz';
+      }
+      return '';
+  }
+
+  const sendNumber = function() {
+    let result = '';
+    for(let i=0;i<chosenNumber;i++) {
+      if(!fizz(i) && !buzz(i)) {
+          result += i;
+      }
+      else {
+          result += fizz(i);
+          result += buzz(i);
+      }
+
+    }
+
+    setResult(result)
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <input type="number" value={chosenNumber} onInput={e => setNumber(e.target.value)}/>
+      <input type="button" value="Envoyer" onClick={sendNumber} />
+      
+
+      <code>{result != null ? result : ''}</code>
     </div>
   );
 }
